@@ -11,6 +11,10 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
+    "scheme": "my-app",
+    "experiments": {
+      "typedRoutes": true
+    },
     "ios": {
       "supportsTablet": true
     },
@@ -24,10 +28,72 @@
       "predictiveBackGestureEnabled": false
     },
     "web": {
-      "favicon": "./assets/favicon.png"
+      "favicon": "./assets/favicon.png",
+      "bundler": "metro"
     },
     "plugins": [
-      "expo-sqlite"
+      "expo-sqlite",
+      [
+        "expo-font",
+        {
+          "fonts": [
+            "./assets/fonts/Inter_18pt-ExtraLight.ttf",
+            "./assets/fonts/Inter_18pt-Light.ttf",
+            "./assets/fonts/Inter_18pt-Regular.ttf",
+            "./assets/fonts/Inter_18pt-Medium.ttf",
+            "./assets/fonts/Inter_18pt-SemiBold.ttf",
+            "./assets/fonts/Inter_18pt-Bold.ttf",
+            "./assets/fonts/Inter_18pt-ExtraBold.ttf",
+            "./assets/fonts/Inter_18pt-Black.ttf",
+            "./assets/fonts/PlusJakartaSans-ExtraLight.ttf",
+            "./assets/fonts/PlusJakartaSans-Light.ttf",
+            "./assets/fonts/PlusJakartaSans-Regular.ttf",
+            "./assets/fonts/PlusJakartaSans-Medium.ttf",
+            "./assets/fonts/PlusJakartaSans-SemiBold.ttf",
+            "./assets/fonts/PlusJakartaSans-Bold.ttf",
+            "./assets/fonts/PlusJakartaSans-ExtraBold.ttf"
+          ],
+          "android": {
+            "fonts": [
+              "./assets/fonts/Inter_18pt-ExtraLight.ttf",
+              "./assets/fonts/Inter_18pt-Light.ttf",
+              "./assets/fonts/Inter_18pt-Regular.ttf",
+              "./assets/fonts/Inter_18pt-Medium.ttf",
+              "./assets/fonts/Inter_18pt-SemiBold.ttf",
+              "./assets/fonts/Inter_18pt-Bold.ttf",
+              "./assets/fonts/Inter_18pt-ExtraBold.ttf",
+              "./assets/fonts/Inter_18pt-Black.ttf",
+              "./assets/fonts/PlusJakartaSans-ExtraLight.ttf",
+              "./assets/fonts/PlusJakartaSans-Light.ttf",
+              "./assets/fonts/PlusJakartaSans-Regular.ttf",
+              "./assets/fonts/PlusJakartaSans-Medium.ttf",
+              "./assets/fonts/PlusJakartaSans-SemiBold.ttf",
+              "./assets/fonts/PlusJakartaSans-Bold.ttf",
+              "./assets/fonts/PlusJakartaSans-ExtraBold.ttf"
+            ]
+          },
+          "ios": {
+            "fonts": [
+              "./assets/fonts/Inter_18pt-ExtraLight.ttf",
+              "./assets/fonts/Inter_18pt-Light.ttf",
+              "./assets/fonts/Inter_18pt-Regular.ttf",
+              "./assets/fonts/Inter_18pt-Medium.ttf",
+              "./assets/fonts/Inter_18pt-SemiBold.ttf",
+              "./assets/fonts/Inter_18pt-Bold.ttf",
+              "./assets/fonts/Inter_18pt-ExtraBold.ttf",
+              "./assets/fonts/Inter_18pt-Black.ttf",
+              "./assets/fonts/PlusJakartaSans-ExtraLight.ttf",
+              "./assets/fonts/PlusJakartaSans-Light.ttf",
+              "./assets/fonts/PlusJakartaSans-Regular.ttf",
+              "./assets/fonts/PlusJakartaSans-Medium.ttf",
+              "./assets/fonts/PlusJakartaSans-SemiBold.ttf",
+              "./assets/fonts/PlusJakartaSans-Bold.ttf",
+              "./assets/fonts/PlusJakartaSans-ExtraBold.ttf"
+            ]
+          }
+        }
+      ],
+      "expo-router"
     ]
   }
 }

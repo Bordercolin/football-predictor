@@ -1,84 +1,162 @@
-# Design System Strategy: The High-Performance Editorial
+# App design reference (LLM / implementer guide)
 
-## 1. Overview & Creative North Star: "The Kinetic Gallery"
-This design system moves away from the aggressive, neon-drenched aesthetics of traditional sports betting and toward a "Kinetic Gallery" experience. It treats sports data with the reverence of an editorial magazine and the precision of a high-frequency trading platform.
-
-The North Star is **High-Performance Clarity**. We achieve a premium feel through intentional asymmetry—using large `display-lg` typography to anchor layouts—and "breathing room" (negative space) that allows complex odds and statistics to feel approachable. By layering light surfaces instead of using rigid borders, we create a fluid, airy interface that feels like high-end athletic apparel: lightweight, technical, and sophisticated.
+Short intent: **editorial, calm sports product**—navy as authority, cool greys for surfaces, coral/red for emphasis—not neon “betting app” chrome. Prefer **tonal surfaces** over heavy borders; **clear type hierarchy** (display vs data).
 
 ---
 
-## 2. Color & Surface Architecture
-We abandon the "boxed-in" look of legacy apps. The interface is defined by light and depth, not lines.
+## 1. Source of truth (files)
 
-### The "No-Line" Rule
-**Explicit Instruction:** Designers are prohibited from using 1px solid borders for sectioning content. Boundaries must be defined solely through background color shifts.
-- Use `surface-container-low` (#f3f4f5) to define a secondary content area sitting on a `surface` (#f8f9fa) background.
-- To separate a "Match Card" from a background, use a tonal shift to `surface-container-lowest` (#ffffff) to create a natural, borderless lift.
+| What | Where |
+|------|--------|
+| Color values (hex) | `src/utils/colors.js` |
+| Tailwind tokens (NativeWind) | `tailwind.config.js` → `theme.extend.colors` imports that file |
+| Body / labels text | `@/components/typography/Text` — props: `family`, `weight` |
+| Headlines | `@/components/typography/Heading` — `level` 1–4, always `family="jakarta"` internally |
+| Icon set | `@expo/vector-icons` — `Ionicons` |
 
-### Surface Hierarchy & Nesting
-Treat the UI as a series of physical layers. Use the tier system to create "nested" importance:
-1. **Base Layer:** `surface` (#f8f9fa) – The canvas.
-2. **Sectioning:** `surface-container-low` (#f3f4f5) – Use for sidebars or grouping related modules.
-3. **Interactive Elements:** `surface-container-lowest` (#ffffff) – Reserved for the most important cards and input fields to make them "pop" against the gray base.
-
-### Signature Textures & Gradients
-To provide "visual soul," use subtle gradients for primary actions and hero moments:
-- **Primary CTA:** A linear gradient from `primary` (#001b44) to `primary_container` (#002f6c) at a 135-degree angle.
-- **Data Accents:** Use `secondary` (#00658d) with a `surface_variant` overlay at 10% opacity to create a technical "glow" that isn't neon.
+**Rule:** When adding UI, prefer **Tailwind classes** (`text-primary-navy-dark`) or **`colors` from `@/utils/colors`** in `style`—do not invent new hex values unless extending `colors.js`.
 
 ---
 
-## 3. Typography: The Editorial Edge
-We use a dual-typeface system to balance "Sporty Edge" with "Technical Precision."
+## 2. Color tokens → Tailwind classes
 
-* **Display & Headline (Plus Jakarta Sans):** These are your "Athletic" voices. Use `display-lg` (3.5rem) with tight letter-spacing (-0.02em) for big score reveals or hero headlines. The geometric nature of Plus Jakarta Sans provides the "High-Performance" feel.
-* **Body & Labels (Inter):** These are your "Technical" voices. Inter is used for odds, player stats, and micro-copy. Its high x-height ensures readability even at `label-sm` (0.6875rem) when viewing dense match spreadsheets.
-* **Hierarchy Note:** Always pair a `headline-sm` in `primary` with `body-md` in `on_surface_variant` (#434750) to ensure the data feels secondary to the narrative.
+Tailwind flattens nested keys: `primary.navy.dark` → utility segment `primary-navy-dark` → class `text-primary-navy-dark`, `bg-primary-navy-dark`, etc.
+
+### 2.1 Primary navy (brand / headlines)
+
+| Role | Hex | Example classes |
+|------|-----|-----------------|
+| Navy default | `#002F6C` | `text-primary-navy`, `bg-primary-navy` |
+| Navy light | `#7090D3` | `text-primary-navy-light` |
+| Navy dark | `#001A42` | `text-primary-navy-dark` (strong headlines) |
+
+### 2.2 Primary blue (accents, links, “live” energy)
+
+| Role | Hex | Example classes |
+|------|-----|-----------------|
+| Blue default | `#00AEEF` | `text-primary-blue`, `bg-primary-blue` |
+| Blue light | `#C6E7FF` | `bg-primary-blue-light` |
+| Blue dark | `#004C6B` | `text-primary-blue-dark` |
+
+### 2.3 Primary red / coral (warnings, CTAs, emotional emphasis)
+
+| Role | Hex | Example classes |
+|------|-----|-----------------|
+| Red default | `#FF6F61` | `text-primary-red`, `bg-primary-red` |
+| Red light | `#FFB4AA` | `bg-primary-red-light` |
+| Red dark | `#8B1A16` | `text-primary-red-dark` |
+
+### 2.4 Greys (UI chrome, secondary text, cards)
+
+| Role | Hex | Example classes |
+|------|-----|-----------------|
+| Grey default | `#5C5F60` | `text-primary-grey` (muted labels) |
+| Grey light | `#f2f4f5` | `bg-primary-grey-light` (soft panels / cards) |
+| Grey dark | `#2E3132` | `text-primary-grey-dark` |
+
+### 2.5 Global
+
+| Token | Hex | Example classes |
+|-------|-----|-----------------|
+| `white` | `#F8F9FA` | `bg-white`, `text-white` |
+| `black` | `#191C1D` | `text-black` (prefer over pure `#000`) |
+| `success` | `#008000` | `text-success`, `bg-success` |
+
+### 2.6 Semantic usage (quick rules)
+
+- **Page / canvas:** often `bg-white` or light grey surfaces (`bg-primary-grey-light`).
+- **Primary titles / league names:** `text-primary-navy-dark` + Jakarta, heavy weight.
+- **Secondary / meta labels:** `text-primary-grey`, Inter, smaller size + tracking if uppercase.
+- **Destructive / “hot” actions:** `primary-red` family, not random reds.
+- **Avoid:** pure `#000`; use `black` token or navy/grey scale.
 
 ---
 
-## 4. Elevation & Depth: Tonal Layering
-Traditional shadows and borders create "visual noise." We use ambient light.
+## 3. Typography
 
-* **The Layering Principle:** Depth is achieved by "stacking." A `surface-container-highest` (#e1e3e4) element should be used for persistent navigation (like a bottom bar), creating a solid anchor against the lighter `surface` background.
-* **Ambient Shadows:** For floating elements (Modals/Poppers), use an extra-diffused shadow: `0px 24px 48px rgba(25, 28, 29, 0.06)`. The tint is derived from `on_surface` to keep it natural.
-* **The "Ghost Border" Fallback:** If a divider is mandatory for accessibility, use the `outline_variant` (#c4c6d2) at **15% opacity**. It should be felt, not seen.
-* **Glassmorphism:** For top navigation bars, use `surface` (#f8f9fa) at 80% opacity with a `backdrop-blur` of 12px. This allows the vibrant team colors and scrolling content to bleed through, softening the layout.
+### 3.1 Families (loaded in `src/app/_layout.tsx`)
+
+| Role | `Text` / `Heading` `family` | Actual font files (static weights) |
+|------|-----------------------------|-----------------------------------|
+| Headings | `Heading` → always Jakarta | `PlusJakartaSans-*` |
+| UI body, labels, data | `inter` (default on `Text`) | `Inter_18pt-*` |
+
+### 3.2 Weights (only these are wired)
+
+`weight` prop: **`400` | `600` | `700` | `800`** — maps to specific font files (do not rely on synthetic `fontWeight` for custom families).
+
+| Weight | Typical use |
+|--------|----------------|
+| 400 | Body, captions |
+| 600 | Semibold labels |
+| 700 | Strong labels |
+| 800 | Display / hero titles |
+
+### 3.3 Heading levels → Tailwind size (in `Heading.tsx`)
+
+| `level` | `className` size token |
+|---------|-------------------------|
+| 1 | `text-2xl` |
+| 2 | `text-xl` |
+| 3 | `text-lg` |
+| 4 | `text-base` |
+
+### 3.4 Tailwind font utilities
+
+- `font-inter` → `Inter-Regular` (default face only; use `Text` `weight` for other Inter weights).
+- `font-jakarta` → `PlusJakartaSans-Regular` (same caveat).
+
+**Prefer** the `Text` / `Heading` components so **family + weight stay consistent**.
+
+### 3.5 Default text styling
+
+`Text` adds `leading-tight` and `text-on_surface` by default — if `text-on_surface` is not defined in theme, replace with an explicit token (e.g. `text-black` or `text-primary-navy-dark`) when building new screens.
 
 ---
 
-## 5. Components & Primitives
+## 4. Layout & shape
 
-### Buttons (The Kinetic Triggers)
-- **Primary:** Gradient (`primary` to `primary_container`), `DEFAULT` (12px) rounding, white text.
-- **Action (Coral):** Use `on_tertiary_container` (#fb6c5e) for "Place Bet" or "Live Now" buttons. This warm coral acts as the emotional trigger against the cool navy/blue palette.
-- **Secondary:** `surface-container-high` (#e7e8e9) with `primary` text. No border.
-
-### Cards (Match & Stat Modules)
-- **Rule:** Forbid divider lines within cards.
-- **Implementation:** Use `Spacing 4` (1.4rem) to separate a team logo from the odds. If multiple matches are listed, alternate background colors between `surface-container-lowest` and `surface-container-low` instead of using lines.
-
-### Chips (Market Filters)
-- **Default:** `surface-container-high` background, `on_surface_variant` text.
-- **Selected:** `secondary` (#00658d) background, `on_secondary` (white) text.
-
-### High-Performance Inputs
-- Input fields use `surface-container-lowest` (#ffffff) with a `3.5` (1.2rem) padding.
-- Error states: Use `error` (#ba1a1a) text but a `error_container` (#ffdad6) soft background glow rather than a thick red border.
-
-### Specialized Component: The "Momentum Gauge"
-For a sports app, create a custom "Momentum" component using a `secondary_container` (#2dbcfe) to `secondary` gradient bar to show which team is dominating, housed in a `surface-dim` (#d9dadb) track.
+- **Cards:** e.g. `rounded-2xl`, generous padding (`p-6`), `bg-primary-grey-light` for lifted modules (see `LeagueStatusCard`).
+- **Bottom navigation:** `@/components/core/Navigation` — grey bar from `colors.primary.grey`, active state `navy.dark`, inactive `grey.DEFAULT`.
+- **Spacing:** use Tailwind spacing scale; editorial layouts favor **more horizontal padding** on narrow screens (`px-6` pattern).
 
 ---
 
-## 6. Do's and Don'ts
+## 5. Borders, shadows, depth
 
-### Do
-- **Do** use `Spacing 8` (2.75rem) for page margins to emphasize the "Airy" feel.
-- **Do** use `tertiary_container` (#6b0004) sparingly for "Hot Bets" or "High Risk" indicators.
-- **Do** align data points (odds) to the right and labels to the left to create a clean vertical "gutter" of white space.
+**Direction (align new work here):**
 
-### Don't
-- **Don't** use pure black (#000000). Always use `on_background` (#191c1d) for text to maintain the premium, soft-gray look.
-- **Don't** use the `DEFAULT` (12px) rounding on every single element. Use `full` (9999px) for chips and `sm` (0.25rem) for very small indicators to create visual variety.
-- **Don't** use standard "drop shadows" on cards. Stick to tonal background shifts.
+- **SHOULD:** separate regions with **background color** (white vs `primary-grey-light` vs slightly darker grey), not 1px boxes everywhere.
+- **SHOULD:** use **hairline** borders only when needed (e.g. nav top edge); subtle grey from the same palette.
+- **AVOID:** heavy drop shadows on every card; if using shadow, keep it soft and rare (modals, floating elements).
+- **AVOID:** neon gradients unless for a deliberate hero/CTA moment.
+
+*(Older drafts mentioned Material-style names like `surface-container-low`—those are **not** in `colors.js`. Map ideas to the table in §2.)*
+
+---
+
+## 6. Icons
+
+- Use **`Ionicons`** from `@expo/vector-icons`: `import { Ionicons } from "@expo/vector-icons"`.
+- Match icon stroke/fill weight to state (outline vs filled) similar to `Navigation.tsx`.
+- Tint with semantic colors from §2 (not arbitrary hex).
+
+---
+
+## 7. Checklist before shipping UI
+
+1. Colors taken from **`src/utils/colors.js`** (or matching `text-primary-*` / `bg-primary-*` classes).
+2. Type set via **`Text` / `Heading`** with valid `weight` and appropriate `family`.
+3. Surfaces differentiated by **tone**, not only borders.
+4. New routes/screens still respect **safe area** and **bottom nav** layout in `src/app/_layout.tsx` if applicable.
+
+---
+
+## 8. Glossary (one line each)
+
+| Term | Meaning in this app |
+|------|---------------------|
+| **Editorial** | Magazine-like hierarchy: strong title, subdued supporting data. |
+| **Tonal layering** | Different background greys/whites to show depth instead of outlines. |
+| **Primary navy** | Brand and primary reading emphasis for headlines. |
+| **Primary grey** | Muted text and soft panels. |
