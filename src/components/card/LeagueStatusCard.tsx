@@ -50,7 +50,7 @@ export default function LeagueStatusCard({
         <Text
           family="jakarta"
           weight={800}
-          className="text-4xl leading-none text-primary-navy-dark"
+          className="text-3xl leading-none text-primary-navy-dark"
         >
           {rankLabel}
         </Text>

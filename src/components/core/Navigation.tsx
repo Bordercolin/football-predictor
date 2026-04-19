@@ -9,7 +9,7 @@ import { Pressable, StyleSheet, View } from "react-native";
 const grey = colors.primary.grey;
 const navy = colors.primary.navy;
 
-export type NavigationTabKey = "home" | "matches" | "leaderboard" | "settings";
+export type NavigationTabKey = "home" | "matches" | "leaderboard" | "standings";
 
 type IonName = ComponentProps<typeof Ionicons>["name"];
 
@@ -35,10 +35,10 @@ const TABS: TabConfig[] = [
     iconOutline: "podium-outline",
   },
   {
-    key: "settings",
-    label: "Settings",
-    icon: "settings",
-    iconOutline: "settings-outline",
+    key: "standings",
+    label: "Standings",
+    icon: "stats-chart",
+    iconOutline: "stats-chart-outline",
   },
 ];
 
@@ -46,14 +46,14 @@ const HREF: Record<NavigationTabKey, Href> = {
   home: "/",
   matches: "/matches",
   leaderboard: "/leaderboard",
-  settings: "/settings",
+  standings: "/standings" as Href,
 };
 
 function tabKeyFromPathname(pathname: string): NavigationTabKey {
   const segment = pathname.replace(/\/$/, "") || "/";
   if (segment === "/matches") return "matches";
   if (segment === "/leaderboard") return "leaderboard";
-  if (segment === "/settings") return "settings";
+  if (segment === "/standings") return "standings";
   return "home";
 }
 
@@ -80,7 +80,7 @@ export default function Navigation({
     >
       {TABS.map(({ key, label, icon, iconOutline }) => {
         const active = activeTab === key;
-        const color = active ? navy.dark : grey.DEFAULT;
+        const color = active ? navy.dark : grey.dark;
         const iconName = active ? icon : iconOutline;
 
         return (
@@ -92,13 +92,13 @@ export default function Navigation({
               onTabPress?.(key);
               router.replace(HREF[key]);
             }}
-            className="min-w-0 flex-1 items-center gap-1 py-2 active:opacity-70"
+            className="min-w-0 flex-1 items-center gap-1 py-2"
           >
             <Ionicons name={iconName} size={24} color={color} />
             <Text
               family="inter"
               weight={active ? 600 : 400}
-              className="text-center text-[11px]"
+              className="text-center text-xs"
               style={{ color }}
             >
               {label}
