@@ -79,7 +79,7 @@ export default function Standings() {
   }, [activeKey]);
 
   return (
-    <SafeAreaView className="flex-1 pb-4 pt-1">
+    <SafeAreaView className="flex-1 bg-background pb-4 pt-1">
       <View className="px-5">
         <ScreenHeader title="Standings" className="mb-4" />
       </View>
@@ -95,12 +95,14 @@ export default function Standings() {
         <View className="px-5">
           {groups.map((group) => (
             <View key={group.key} className="mb-5">
-              <Text family="jakarta" weight={800} className="mb-3 text-2xl text-primary-navy-dark">
-                {group.title}
-              </Text>
+              <View className="mb-3 rounded-[24px] border border-border-subtle bg-surface px-4 py-4">
+                <Text family="jakarta" weight={800} className="text-2xl text-primary-navy-dark">
+                  {group.title}
+                </Text>
+              </View>
 
-              <View className="overflow-hidden rounded-2xl bg-white">
-                <View className="flex-row items-center border-b border-primary-grey px-3 py-2">
+              <View className="overflow-hidden rounded-[28px] border border-border-subtle bg-surface">
+                <View className="flex-row items-center border-b border-border-subtle bg-surface-muted px-3 py-3">
                   <Text family="inter" weight={700} className="w-6 text-sm uppercase text-primary-grey-dark">
                     #
                   </Text>
@@ -123,9 +125,9 @@ export default function Standings() {
                   <View
                     key={team.name}
                     className={clsx(
-                      "flex-row items-center border-b border-primary-grey-light px-3 py-2.5",
+                      "flex-row items-center border-b border-primary-grey-light px-3 py-3",
                       index === group.teams.length - 1 && "border-b-0",
-                      index < 2 && "bg-primary-blue-light/20",
+                      index < 2 && "bg-primary-blue-light/16",
                     )}
                   >
                     <Text family="inter" weight={700} className="w-6 text-xs text-primary-grey-dark">
@@ -179,4 +181,3 @@ export default function Standings() {
     </SafeAreaView>
   );
 }
-

@@ -1,5 +1,6 @@
 import MatchCard from "@/components/card/MatchCard";
 import type { MatchCardProps } from "@/components/card/card.types";
+import Text from "@/components/typography/Text";
 import clsx from "clsx";
 import { useCallback, useState } from "react";
 import { View } from "react-native";
@@ -49,6 +50,25 @@ export default function MatchCardCarousel({
   return (
     <>
       <View className={clsx("w-full", className)} onLayout={onLayout}>
+        <View className="mb-4 flex-row items-end justify-between px-1">
+          <View>
+            <Text
+              family="inter"
+              weight={700}
+              className="mb-1 text-[11px] uppercase tracking-[0.18em] text-text-muted"
+            >
+              Matchday Focus
+            </Text>
+            <Text family="jakarta" weight={800} className="text-2xl text-primary-navy-dark">
+              Featured Matches
+            </Text>
+          </View>
+          <View className="rounded-full border border-border-subtle bg-surface px-3 py-1.5">
+            <Text family="inter" weight={700} className="text-xs text-text-muted">
+              {matches.length} live cards
+            </Text>
+          </View>
+        </View>
         {width > 0 && (
           <Carousel
             loop={matches.length > 1}

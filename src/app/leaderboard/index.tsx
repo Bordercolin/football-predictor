@@ -23,7 +23,7 @@ export default function Leaderboard() {
   const remaining = LEADERBOARD_DATA.slice(3);
 
   return (
-    <SafeAreaView className="flex-1 px-5 pb-4 pt-1">
+    <SafeAreaView className="flex-1 bg-background px-5 pb-4 pt-1">
       <ScreenHeader title="Leaderboard" className="mb-2" />
 
       <FlatList
@@ -33,13 +33,16 @@ export default function Leaderboard() {
           <>
             <LeaderboardPodium entries={LEADERBOARD_DATA} />
             {remaining.length > 0 && (
-              <View className="mb-3 mt-5 px-5">
+              <View className="mb-4 mt-6 rounded-[24px] border border-border-subtle bg-surface px-5 py-4">
                 <Text
-                  family="jakarta"
+                  family="inter"
                   weight={700}
-                  className="text-xs uppercase tracking-wider text-primary-navy"
+                  className="mb-1 text-xs uppercase tracking-[0.18em] text-text-muted"
                 >
                   Rankings
+                </Text>
+                <Text family="jakarta" weight={800} className="text-xl text-primary-navy-dark">
+                  Full Table
                 </Text>
               </View>
             )}

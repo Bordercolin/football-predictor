@@ -2,11 +2,11 @@ import LeagueStatusCard from "@/components/card/LeagueStatusCard";
 import MatchCardCarousel from "@/components/carousel/MatchCardCarousel";
 import type { MatchCardProps } from "@/components/card/card.types";
 import MiniLeaderboard from "@/components/leaderboard/MiniLeaderboard";
-import type { LeaderboardEntry } from "@/components/leaderboard/MiniLeaderboard";
+import type { LeaderboardEntry } from "@/components/leaderboard/leaderboard.types";
 import ScreenHeader from "@/components/core/ScreenHeader";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
-import { ScrollView } from "react-native";
+import { ScrollView, View } from "react-native";
 
 const SAMPLE_LEADERBOARD: LeaderboardEntry[] = [
   { name: "Alex Thompson", points: 58 },
@@ -53,15 +53,17 @@ const SAMPLE_MATCHES: MatchCardProps[] = [
 export default function Home() {
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
-      <SafeAreaView className="flex-1 items-center px-5 pb-4 pt-1">
-        <ScrollView>
+      <SafeAreaView className="flex-1 bg-background px-5 pb-2 pt-1">
+        <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{ paddingBottom: 24 }}>
           <ScreenHeader title="Home" className="mb-4" />
-          <LeagueStatusCard
-            className="w-full max-w-md"
-            leagueName="THE OFFICE LEAGUE"
-            rankLabel="2nd Place"
-            points={42}
-          />
+          <View className="rounded-[32px] bg-background-alt px-0 pb-1 pt-1">
+            <LeagueStatusCard
+              className="w-full max-w-md"
+              leagueName="THE OFFICE LEAGUE"
+              rankLabel="2nd Place"
+              points={42}
+            />
+          </View>
 
           <MatchCardCarousel
             className="mt-5 w-full max-w-md"
@@ -73,7 +75,6 @@ export default function Home() {
             entries={SAMPLE_LEADERBOARD}
             currentUserRank={2}
           />
-       
         </ScrollView>
       </SafeAreaView>
     </GestureHandlerRootView>

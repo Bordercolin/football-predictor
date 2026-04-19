@@ -37,12 +37,12 @@ function ScoreStepper({
         <Pressable
           accessibilityRole="button"
           onPress={() => onChange(value + 1)}
-          className="h-11 w-11 items-center justify-center rounded-full bg-primary-grey active:opacity-80"
+          className="h-11 w-11 items-center justify-center rounded-full border border-border-subtle bg-surface active:opacity-80"
         >
           <Ionicons name="chevron-up" size={22} color={colors.primary.navy.dark} />
         </Pressable>
 
-        <View className="my-3 h-14 w-16 items-center justify-center rounded-2xl bg-white">
+        <View className="my-3 h-14 w-16 items-center justify-center rounded-2xl border border-border-subtle bg-surface">
           <Text family="jakarta" weight={800} className="text-3xl text-primary-navy-dark">
             {value}
           </Text>
@@ -51,7 +51,7 @@ function ScoreStepper({
         <Pressable
           accessibilityRole="button"
           onPress={() => onChange(Math.max(0, value - 1))}
-          className="h-11 w-11 items-center justify-center rounded-full bg-primary-grey active:opacity-80"
+          className="h-11 w-11 items-center justify-center rounded-full border border-border-subtle bg-surface active:opacity-80"
         >
           <Ionicons name="chevron-down" size={22} color={colors.primary.navy.dark} />
         </Pressable>
@@ -75,13 +75,13 @@ export default function PredictionModal({
   return (
     <Modal visible={visible} transparent animationType="slide" onRequestClose={onCancel}>
       <View className="flex-1 justify-end bg-black/40">
-        <View className="rounded-t-3xl bg-primary-grey-light px-5 pb-6 pt-4">
+        <View className="rounded-t-[32px] border border-border-subtle bg-background px-5 pb-6 pt-4">
           <View className="mb-4 items-center">
-            <View className="h-1.5 w-12 rounded-full bg-primary-grey" />
+            <View className="h-1.5 w-12 rounded-full bg-border-strong" />
           </View>
 
           <View className="mb-5 flex-row items-center justify-between">
-            <Pressable onPress={onCancel} className="h-10 w-10 items-center justify-center rounded-full bg-primary-grey">
+            <Pressable onPress={onCancel} className="h-10 w-10 items-center justify-center rounded-full border border-border-subtle bg-surface">
               <Ionicons name="close" size={18} color={colors.primary.navy.dark} />
             </Pressable>
 
@@ -92,7 +92,7 @@ export default function PredictionModal({
             <View className="h-10 w-10" />
           </View>
 
-          <View className="mb-4 rounded-2xl bg-white px-4 py-3">
+          <View className="mb-4 rounded-[24px] border border-border-subtle bg-surface px-4 py-3">
             <Text family="inter" weight={700} className="text-xs uppercase tracking-wider text-primary-grey-dark">
               {match?.kickoffLabel ?? "Upcoming match"}
             </Text>
@@ -126,7 +126,7 @@ export default function PredictionModal({
           <View className="mt-6 flex-row gap-3">
             <Pressable
               onPress={onCancel}
-              className="flex-1 items-center justify-center rounded-xl bg-primary-grey py-3"
+              className="flex-1 items-center justify-center rounded-2xl border border-border-subtle bg-surface py-3.5"
             >
               <Text family="inter" weight={800} className="text-sm text-primary-navy-dark">
                 Cancel
@@ -135,7 +135,7 @@ export default function PredictionModal({
 
             <Pressable
               onPress={onSave}
-              className="flex-1 items-center justify-center rounded-xl bg-primary-navy-dark py-3"
+              className="flex-1 items-center justify-center rounded-2xl bg-primary-navy-dark py-3.5"
             >
               <Text family="inter" weight={800} className="text-sm text-white">
                 Save
@@ -147,4 +147,3 @@ export default function PredictionModal({
     </Modal>
   );
 }
-

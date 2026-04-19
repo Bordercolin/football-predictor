@@ -29,7 +29,7 @@ export default function ScreenHeader({
       accessibilityRole="header"
       testID={testID}
       className={clsx(
-        "relative min-h-[52px] w-full flex-row items-center justify-between",
+        "relative min-h-[56px] w-full flex-row items-center justify-between",
         className
       )}
     >
@@ -38,7 +38,7 @@ export default function ScreenHeader({
         accessibilityRole="button"
         hitSlop={10}
         onPress={onProfilePress}
-        className="z-10 h-11 w-11 items-center justify-center active:opacity-70"
+        className="z-10 h-12 w-12 items-center justify-center rounded-2xl border border-border-subtle bg-surface active:opacity-70"
       >
         <Ionicons name="person-circle-outline" size={30} color={iconColor} />
       </Pressable>
@@ -51,7 +51,7 @@ export default function ScreenHeader({
           family="inter"
           weight={700}
           numberOfLines={1}
-          className="text-center text-2xl text-primary-navy-dark"
+          className="text-center text-[28px] text-primary-navy-dark"
         >
           {title}
         </Text>
@@ -62,7 +62,7 @@ export default function ScreenHeader({
         accessibilityRole="button"
         hitSlop={10}
         onPress={onNotificationsPress}
-        className="z-10 h-11 w-11 items-center justify-center active:opacity-70"
+        className="z-10 h-12 w-12 items-center justify-center rounded-2xl border border-border-subtle bg-surface active:opacity-70"
       >
         <Ionicons name="notifications-outline" size={26} color={iconColor} />
       </Pressable>

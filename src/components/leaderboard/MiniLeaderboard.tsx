@@ -32,8 +32,10 @@ function LeaderboardRow({
   return (
     <View
       className={clsx(
-        "flex-row items-center rounded-xl px-4 py-3",
-        entry.isCurrentUser ? "bg-primary-blue-light/30" : "bg-primary-grey-light",
+        "flex-row items-center rounded-2xl border px-4 py-3.5",
+        entry.isCurrentUser
+          ? "border-primary-blue/20 bg-primary-blue-light/25"
+          : "border-border-subtle bg-surface-muted",
       )}
     >
       <View className="mr-3 w-7 items-center">
@@ -82,13 +84,22 @@ export default function MiniLeaderboard({
   const router = useRouter();
 
   return (
-    <View className={clsx("w-full", className)}>
+    <View className={clsx("w-full rounded-[28px] border border-border-subtle bg-surface px-5 py-5", className)}>
       <View className="mb-3 flex-row items-center justify-between">
-        <Heading level={3} className="text-primary-navy-dark">
-          Leaderboard
-        </Heading>
+        <View>
+          <Text
+            family="inter"
+            weight={700}
+            className="mb-1 text-[11px] uppercase tracking-[0.18em] text-text-muted"
+          >
+            League Snapshot
+          </Text>
+          <Heading level={3} className="text-primary-navy-dark">
+            Leaderboard
+          </Heading>
+        </View>
         {currentUserRank && (
-          <View className="rounded-full bg-primary-blue-light/40 px-3 py-1">
+          <View className="rounded-full border border-primary-blue/20 bg-primary-blue-light/40 px-3 py-1.5">
             <Text
               family="jakarta"
               weight={700}
@@ -108,7 +119,7 @@ export default function MiniLeaderboard({
 
       <Pressable
         onPress={() => router.push("/leaderboard")}
-        className="mt-3 flex-row items-center justify-center rounded-xl bg-primary-grey py-3"
+        className="mt-4 flex-row items-center justify-center rounded-2xl border border-border-subtle bg-surface-tinted py-3.5"
       >
         <Text
           family="jakarta"

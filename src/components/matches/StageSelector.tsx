@@ -35,8 +35,10 @@ export default function StageSelector({
               key={opt.key}
               onPress={() => onChange(opt.key)}
               className={clsx(
-                "rounded-full px-5 py-3",
-                active ? "bg-primary-navy-dark" : "bg-primary-grey",
+                "rounded-full border px-5 py-3.5",
+                active
+                  ? "border-primary-blue/20 bg-primary-navy-dark"
+                  : "border-border-subtle bg-surface",
               )}
             >
               <Text
@@ -53,4 +55,3 @@ export default function StageSelector({
     </View>
   );
 }
-

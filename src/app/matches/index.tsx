@@ -171,7 +171,7 @@ export default function Matches() {
   };
 
   return (
-    <SafeAreaView className="flex-1 pb-4 pt-1">
+    <SafeAreaView className="flex-1 bg-background pb-4 pt-1">
       <View className="px-5">
         <ScreenHeader title="Matches" className="mb-4" />
       </View>
@@ -192,21 +192,23 @@ export default function Matches() {
         SectionSeparatorComponent={() => <View className="h-6" />}
         renderSectionHeader={({ section }) => (
           <View className="px-5">
-            <View className="mb-3 flex-row items-baseline justify-between">
-              <Text
-                family="jakarta"
-                weight={800}
-                className="text-2xl text-primary-navy-dark"
-              >
-                {section.title}
-              </Text>
-              <Text
-                family="inter"
-                weight={700}
-                className="text-xs uppercase tracking-wider text-primary-grey-dark"
-              >
-                {section.matchesRemainingLabel}
-              </Text>
+            <View className="mb-3 rounded-[24px] border border-border-subtle bg-surface px-4 py-4">
+              <View className="flex-row items-baseline justify-between">
+                <Text
+                  family="jakarta"
+                  weight={800}
+                  className="text-2xl text-primary-navy-dark"
+                >
+                  {section.title}
+                </Text>
+                <Text
+                  family="inter"
+                  weight={700}
+                  className="text-xs uppercase tracking-[0.16em] text-primary-grey-dark"
+                >
+                  {section.matchesRemainingLabel}
+                </Text>
+              </View>
             </View>
           </View>
         )}

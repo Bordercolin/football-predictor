@@ -34,7 +34,7 @@ export default function RootLayout() {
   }
 
   return (
-    <View style={{ flex: 1 }} className="bg-primary-grey-light">
+    <View style={{ flex: 1 }} className="bg-background">
       <SafeAreaProvider>
         <Slot />
         <Navigation />

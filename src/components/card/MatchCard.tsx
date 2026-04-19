@@ -28,19 +28,25 @@ export default function MatchCard({
   return (
     <View
       className={clsx(
-        "w-full rounded-3xl bg-white px-6 pb-8 pt-5",
+        "w-full rounded-[30px] border border-border-subtle bg-surface px-6 pb-7 pt-5",
         className
       )}
+      style={{
+        shadowColor: colors.primary.navy.dark,
+        shadowOpacity: 0.06,
+        shadowRadius: 14,
+        shadowOffset: { width: 0, height: 8 },
+        elevation: 5,
+      }}
       {...props}
     >
-      {/* Top row — kickoff chip (left) · power-up badge (right) */}
       <View className="mb-6 flex-row items-center justify-between">
-        <View className="rounded-full bg-success/15 px-3.5 py-2">
+        <View className="rounded-full border border-primary-blue/15 bg-primary-blue-light/35 px-3.5 py-2">
           <Text
             family="inter"
             weight={700}
             className="text-xs uppercase tracking-wide"
-            style={{ color: colors.success }}
+            style={{ color: colors.primary.navy.dark }}
           >
             {kickoffTime} KICKOFF
           </Text>
@@ -64,9 +70,7 @@ export default function MatchCard({
         )}
       </View>
 
-      {/* Scoreline — home emblem · score · away emblem */}
       <View className="flex-row items-center justify-center py-2">
-        {/* Home */}
         <View className="flex-1 items-center gap-3">
           <Emblem size="lg">
             {homeFlagCode ? <FlagIcon code={homeFlagCode} size={64} /> : null}
@@ -74,13 +78,12 @@ export default function MatchCard({
           <Text
             family="inter"
             weight={700}
-            className="text-base uppercase tracking-wider text-primary-navy-dark"
+            className="text-base uppercase tracking-[0.18em] text-primary-navy-dark"
           >
             {homeTeam}
           </Text>
         </View>
 
-        {/* Score + optional predicted score */}
         <View className="items-center px-4">
           <View className="flex-row items-center gap-4">
             <Text
@@ -107,7 +110,7 @@ export default function MatchCard({
           </View>
 
           {hasPrediction && (
-            <View className="mt-4 items-center rounded-xl bg-primary-grey-light px-5 py-2.5">
+            <View className="mt-4 items-center rounded-2xl border border-border-subtle bg-surface-tinted px-5 py-3">
               <Text
                 family="inter"
                 weight={600}
@@ -142,7 +145,6 @@ export default function MatchCard({
           )}
         </View>
 
-        {/* Away */}
         <View className="flex-1 items-center gap-3">
           <Emblem size="lg">
             {awayFlagCode ? <FlagIcon code={awayFlagCode} size={64} /> : null}
@@ -150,7 +152,7 @@ export default function MatchCard({
           <Text
             family="inter"
             weight={700}
-            className="text-base uppercase tracking-wider text-primary-navy-dark"
+            className="text-base uppercase tracking-[0.18em] text-primary-navy-dark"
           >
             {awayTeam}
           </Text>

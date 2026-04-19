@@ -17,10 +17,10 @@ export default function LeaderboardListRow({
   return (
     <View
       className={clsx(
-        "flex-row items-center rounded-xl px-4 py-3.5",
+        "flex-row items-center rounded-2xl border px-4 py-3.5",
         entry.isCurrentUser
-          ? "bg-primary-blue-light/30"
-          : "bg-primary-grey-light",
+          ? "border-primary-blue/20 bg-primary-blue-light/25"
+          : "border-border-subtle bg-surface",
         className,
       )}
     >
@@ -32,9 +32,9 @@ export default function LeaderboardListRow({
         {rank}
       </Text>
 
-     <Emblem size="sm">
-      <Ionicons name="person" size={18} color="#001A42" />
-     </Emblem>
+      <Emblem size="sm" className="mr-3">
+        <Ionicons name="person" size={18} color="#001A42" />
+      </Emblem>
 
       <Text
         family="jakarta"
@@ -55,4 +55,3 @@ export default function LeaderboardListRow({
     </View>
   );
 }
-

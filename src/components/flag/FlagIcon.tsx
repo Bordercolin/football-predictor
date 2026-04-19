@@ -29,11 +29,10 @@ export default function FlagIcon({ code, size, className }: FlagIconProps) {
     return (
       <View
         className={clsx("fi", `fi-${normalized}`, "fis", className)}
-        style={{
-          fontSize: size,
-          width: size,
-          height: size,
-        }}
+        style={[
+          { width: size, height: size },
+          { fontSize: size } as never,
+        ]}
       />
     );
   }

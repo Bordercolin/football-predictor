@@ -24,7 +24,7 @@ function TeamSlot({ team }: { team: MatchTeam }) {
         weight={700}
         numberOfLines={1}
         className={clsx(
-          "mt-2 text-center text-sm uppercase tracking-wide",
+          "mt-3 text-center text-sm uppercase tracking-[0.16em]",
           known ? "text-primary-navy-dark" : "text-primary-grey-dark",
         )}
       >
@@ -123,9 +123,18 @@ export default function DenseMatchCard({
   const canEditPrediction = match.status === "scheduled";
 
   return (
-    <View className={clsx("w-full rounded-2xl bg-white p-5", className)}>
+    <View
+      className={clsx("w-full rounded-[28px] border border-border-subtle bg-surface p-5", className)}
+      style={{
+        shadowColor: colors.primary.navy.dark,
+        shadowOpacity: 0.05,
+        shadowRadius: 12,
+        shadowOffset: { width: 0, height: 8 },
+        elevation: 4,
+      }}
+    >
       <View className="mb-4 flex-row items-center justify-between">
-        <View className="rounded-lg bg-primary-grey-light px-3 py-2">
+        <View className="rounded-full border border-border-subtle bg-surface-muted px-3.5 py-2">
           <Text
             family="inter"
             weight={700}
@@ -154,7 +163,7 @@ export default function DenseMatchCard({
           {canEditPrediction ? (
             <Pressable
               onPress={onPress}
-              className="h-10 w-10 items-center justify-center rounded-full bg-primary-grey active:opacity-80"
+              className="h-10 w-10 items-center justify-center rounded-full border border-border-subtle bg-surface-muted active:opacity-80"
               accessibilityRole="button"
               accessibilityLabel="Edit prediction"
             >
@@ -186,14 +195,14 @@ export default function DenseMatchCard({
           {canEditPrediction ? (
             <Pressable
               onPress={onPredictNowPress ?? onPress}
-              className="mt-4 items-center justify-center rounded-xl bg-primary-navy-dark py-3"
+              className="mt-4 items-center justify-center rounded-2xl bg-primary-navy-dark py-3.5"
             >
               <Text family="inter" weight={800} className="text-sm text-white">
                 Predict Now
               </Text>
             </Pressable>
           ) : (
-            <View className="mt-4 items-center justify-center rounded-xl bg-primary-grey py-3">
+            <View className="mt-4 items-center justify-center rounded-2xl bg-primary-grey py-3.5">
               <Text
                 family="inter"
                 weight={800}
@@ -208,4 +217,3 @@ export default function DenseMatchCard({
     </View>
   );
 }
-

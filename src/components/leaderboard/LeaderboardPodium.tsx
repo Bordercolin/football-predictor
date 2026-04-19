@@ -30,6 +30,18 @@ export default function LeaderboardPodium({
 
   return (
     <View className={clsx("mb-2 mt-4 w-full items-center", className)}>
+      <View className="mb-5 items-center">
+        <Text
+          family="inter"
+          weight={700}
+          className="mb-1 text-[11px] uppercase tracking-[0.18em] text-text-muted"
+        >
+          Top Performers
+        </Text>
+        <Heading level={2} className="text-primary-navy-dark">
+          This Week&apos;s Podium
+        </Heading>
+      </View>
       <View className="w-full flex-row items-end justify-center gap-3 px-4">
         {PODIUM_ORDER_BY_RANK.map((rank) => {
           const entry = top3[rank - 1];
@@ -42,10 +54,10 @@ export default function LeaderboardPodium({
               <View className="mb-2 items-center">
                 <View
                   className={clsx(
-                    "mb-1.5 items-center justify-center rounded-full",
+                    "mb-1.5 items-center justify-center rounded-full border",
                     isFirst
-                      ? "h-16 w-16 bg-primary-navy-dark"
-                      : "h-12 w-12 bg-primary-grey",
+                      ? "h-16 w-16 border-primary-blue/25 bg-primary-navy-dark"
+                      : "h-12 w-12 border-border-subtle bg-surface",
                   )}
                 >
                   <Ionicons
@@ -81,8 +93,10 @@ export default function LeaderboardPodium({
 
               <View
                 className={clsx(
-                  "w-full items-center justify-center rounded-t-xl",
-                  isFirst ? "bg-primary-navy-dark" : "bg-primary-grey",
+                  "w-full items-center justify-center rounded-t-[22px] border border-b-0",
+                  isFirst
+                    ? "border-primary-blue/20 bg-primary-navy-dark"
+                    : "border-border-subtle bg-surface-muted",
                 )}
                 style={{ height: PODIUM_HEIGHT_BY_RANK[rank] }}
               >
@@ -102,4 +116,3 @@ export default function LeaderboardPodium({
     </View>
   );
 }
-
